@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './style.css';
-import { useHttp } from './hooks';
+import React, { Suspense, lazy } from 'react';
 
+const Demo = lazy(() => import('./Demo'));
 export default function App() {
-  const { data, isloadning, error } = useHttp(
-    'https://jsonplaceholder.typicode.com/users'
-  );
-  if (isloadning) return <h1> Loading..............</h1>;
-  if (error) return <mark> {JSON.stringify(error)} </mark>;
   return (
     <div>
-      {data?.map((d) => (
-        <h4>{d.id}</h4>
-      ))}
+      <h1>Lazy loadning.........</h1>
+      <Suspense fallback={'pending'}>
+        <Demo />
+      </Suspense>
     </div>
   );
 }
